@@ -6,13 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>文章标题 | Cyrus</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="hexo默认集成了disqus，但是在天朝明显多说更受欢迎一点。首先到多说官网去注册一个账号。然后点击进入添加站点页面，填写所有信息。注意，多说域名的前缀就是站点的短网址，下面要用到，这里假设为short_name。在_config.yml中添加多说的配置：duoshuo_shortname: short_name修改themes\layout_partial\article.ejs，把第38行到">
+<meta property="og:type" content="article">
 <meta property="og:title" content="文章标题">
 <meta property="og:url" content="http://yoursite.com/2016/09/12/文章标题/index.html">
 <meta property="og:site_name" content="Cyrus">
-<meta property="og:updated_time" content="2016-09-12T02:50:51.000Z">
+<meta property="og:description" content="hexo默认集成了disqus，但是在天朝明显多说更受欢迎一点。首先到多说官网去注册一个账号。然后点击进入添加站点页面，填写所有信息。注意，多说域名的前缀就是站点的短网址，下面要用到，这里假设为short_name。在_config.yml中添加多说的配置：duoshuo_shortname: short_name修改themes\layout_partial\article.ejs，把第38行到">
+<meta property="og:updated_time" content="2016-09-12T03:28:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文章标题">
+<meta name="twitter:description" content="hexo默认集成了disqus，但是在天朝明显多说更受欢迎一点。首先到多说官网去注册一个账号。然后点击进入添加站点页面，填写所有信息。注意，多说域名的前缀就是站点的短网址，下面要用到，这里假设为short_name。在_config.yml中添加多说的配置：duoshuo_shortname: short_name修改themes\layout_partial\article.ejs，把第38行到">
   
     <link rel="alternative" href="/atom.xml" title="Cyrus" type="application/atom+xml">
   
@@ -227,7 +230,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>hexo默认集成了disqus，但是在天朝明显多说更受欢迎一点。<br>首先到多说官网去注册一个账号。然后点击进入添加站点页面，填写所有信息。注意，多说域名的前缀就是站点的短网址，下面要用到，这里假设为short_name。<br>在_config.yml中添加多说的配置：<br>duoshuo_shortname: short_name<br>修改themes\layout_partial\article.ejs，把第38行到41行的如下代码：<br>&lt;% if (!index &amp;&amp; post.comments &amp;&amp; config.disqus_shortname){ %&gt;</p>
+<p><section id="comments"></section></p>
+<p><div id="disqus_thread"></div></p>
+<p><noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><br><br><br>&lt;% } %&gt;<br>替换成：</p>
+<p>&lt;% if (!index &amp;&amp; post.comments &amp;&amp; config.duoshuo_shortname){ %&gt;</p>
+<p><section id="comments"><br><!-- 多说评论框 start --></section></p>
+<p><div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div><br><!-- 多说评论框 end --><br><!-- 多说公共JS代码 start (一个网页只需插入一次) --></p>
+<p><script type="text/javascript"><br>var duoshuoQuery = {short_name:’&lt;%= config.duoshuo_shortname %&gt;’};<br>(function() {<br>var ds = document.createElement(‘script’);<br>ds.type = ‘text/javascript’;ds.async = true;<br>ds.src = (document.location.protocol == ‘https:’ ? ‘https:’ : ‘http:’) + ‘//static.duoshuo.com/embed.js’;<br>ds.charset = ‘UTF-8’;<br>(document.getElementsByTagName(‘head’)[0]<br>|| document.getElementsByTagName(‘body’)[0]).appendChild(ds);<br>})();<br></script><br><!-- 多说公共JS代码 end --><br><br>&lt;% } %&gt;<br>之后，找到第27到29行：<br>&lt;% if (post.comments &amp;&amp; config.disqus_shortname){ %&gt;<br><a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a><br>&lt;% } %&gt;<br>替换成：</p>
+<p>&lt;% if (post.comments &amp;&amp; config.duoshuo_shortname){ %&gt;<br><a href="<%- url_for(post.path) %>#comments" class="article-comment-link">留言</a><br>&lt;% } %&gt;<br>分享</p>
+<p>hexo默认提供的那四个在国内也被墙了。这里替换成百度一键分享。<br>找到themes\landscape\layout_partialarticle.ejs26行：<br><a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">分享</a><br>替换成：</p>
+<p><a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a></p>
+<p><script>window._bd_share_config={“common”:{“bdSnsKey”:{},”bdText”:””,”bdMini”:”1”,”bdMiniList”:false,”bdPic”:””,”bdStyle”:”2”,”bdSize”:”16”},”share”:{}};with(document)0[(getElementsByTagName(‘head’)[0]||body).appendChild(createElement(‘script’)).src=’<a href="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=&#39;+~(-new">http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=&#39;+~(-new</a> Date()/36e5)];</script><br>之后打开themes\landscape\source\js\script.js，35~86行全部注释掉。</p>
+
       
     </div>
     
@@ -267,7 +282,7 @@
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"true"};
+	var duoshuoQuery = {short_name:"ae263592306ae5e7dfca94417118158f"};
 	(function() {
 		var ds = document.createElement('script');
 		ds.type = 'text/javascript';ds.async = true;
